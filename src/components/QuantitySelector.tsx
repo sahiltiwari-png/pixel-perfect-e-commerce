@@ -17,19 +17,19 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
   max = 99,
 }) => {
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center bg-[#F4EBFF] rounded-lg p-1">
       <button
         onClick={onDecrease}
         disabled={quantity <= min}
-        className="quantity-btn disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-8 h-8 flex items-center justify-center text-[#7F56D9] font-bold hover:bg-white rounded-md transition-colors disabled:opacity-30"
       >
         −
       </button>
-      <span className="w-8 text-center text-sm font-medium">{quantity}</span>
+      <span className="w-10 text-center text-sm font-bold text-gray-900">{quantity}</span>
       <button
         onClick={onIncrease}
         disabled={quantity >= max}
-        className="quantity-btn disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-8 h-8 flex items-center justify-center text-[#7F56D9] font-bold hover:bg-white rounded-md transition-colors disabled:opacity-30"
       >
         +
       </button>

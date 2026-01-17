@@ -3,6 +3,7 @@ import { Search, Heart, ShoppingCart, User, ChevronDown, Globe, Menu, X } from '
 import { Link, useNavigate } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import logo from '@/assets/logo.png';
+import AuthModal from '../auth/AuthModal';
 
 const navItems = [
   { key: 'nav.electronics', href: '/products?category=electronics' },
@@ -18,6 +19,7 @@ const Header: React.FC = () => {
   const { t, language, setLanguage, country, setCountry } = useLanguage();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showLanguageDropdown, setShowLanguageDropdown] = useState(false);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const navigate = useNavigate();
 
   const countryFlag = country === 'dubai' 
@@ -95,13 +97,13 @@ const Header: React.FC = () => {
             </div>
 
             {/* Login */}
-            <Link
-              to="/account"
+            <button
+              onClick={() => setIsAuthModalOpen(true)}
               className="hidden md:flex items-center gap-1 text-sm px-3 py-1.5 hover:bg-secondary rounded-md transition-colors"
             >
               <User className="w-4 h-4" />
               <span>{t('login')}</span>
-            </Link>
+            </button>
 
             {/* Wishlist */}
             <Link
@@ -212,6 +214,11 @@ const Header: React.FC = () => {
           </div>
         </div>
       )}
+      {/* Auth Modal */}
+      <AuthModal 
+        isOpen={isAuthModalOpen} 
+        onClose={() => setIsAuthModalOpen(false)} 
+      />
     </header>
   );
 };

@@ -5,198 +5,195 @@ import { useLanguage } from '@/contexts/LanguageContext';
 
 const DeliveryInfoPage: React.FC = () => {
   const { t, currencySymbol } = useLanguage();
-  const [label, setLabel] = useState<'office' | 'home'>('home');
+  const [label, setLabel] = useState<'OFFICE' | 'HOME'>('HOME');
 
   return (
     <Layout>
-      <div className="container mx-auto px-4 py-6">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Delivery Form */}
-          <div className="lg:col-span-2 bg-card border border-border rounded-xl p-6">
-            <h2 className="text-xl font-semibold text-foreground mb-6">{t('delivery_information')}</h2>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {/* Full Name */}
-              <div>
-                <label className="text-sm font-medium text-foreground mb-1.5 block">{t('full_name')}</label>
-                <input 
-                  type="text" 
-                  placeholder={t('enter_full_name')} 
-                  className="w-full h-11 px-4 border border-border rounded-lg bg-background text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" 
-                />
-              </div>
-
-              {/* Region */}
-              <div>
-                <label className="text-sm font-medium text-foreground mb-1.5 block">{t('region')}</label>
-                <div className="relative">
-                  <select className="w-full h-11 px-4 pr-10 border border-border rounded-lg bg-background text-sm appearance-none focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-muted-foreground">
-                    <option>{t('choose_region')}</option>
-                  </select>
-                  <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
-                </div>
-              </div>
-
-              {/* Phone Number */}
-              <div>
-                <label className="text-sm font-medium text-foreground mb-1.5 block">{t('phone_number')}</label>
-                <input 
-                  type="tel" 
-                  placeholder={t('enter_phone')} 
-                  className="w-full h-11 px-4 border border-border rounded-lg bg-background text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" 
-                />
-              </div>
-
-              {/* City */}
-              <div>
-                <label className="text-sm font-medium text-foreground mb-1.5 block">{t('city')}</label>
-                <div className="relative">
-                  <select className="w-full h-11 px-4 pr-10 border border-border rounded-lg bg-background text-sm appearance-none focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-muted-foreground">
-                    <option>{t('choose_city')}</option>
-                  </select>
-                  <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
-                </div>
-              </div>
-
-              {/* Building/Street */}
-              <div>
-                <label className="text-sm font-medium text-foreground mb-1.5 block">{t('building_street')}</label>
-                <input 
-                  type="text" 
-                  placeholder={t('please_enter')} 
-                  className="w-full h-11 px-4 border border-border rounded-lg bg-background text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" 
-                />
-              </div>
-
-              {/* Area */}
-              <div>
-                <label className="text-sm font-medium text-foreground mb-1.5 block">{t('area')}</label>
-                <div className="relative">
-                  <select className="w-full h-11 px-4 pr-10 border border-border rounded-lg bg-background text-sm appearance-none focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-muted-foreground">
-                    <option>{t('choose_area')}</option>
-                  </select>
-                  <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
-                </div>
-              </div>
-
-              {/* Colony/Landmark */}
-              <div>
-                <label className="text-sm font-medium text-foreground mb-1.5 block">{t('colony_landmark')}</label>
-                <input 
-                  type="text" 
-                  placeholder={t('please_enter')} 
-                  className="w-full h-11 px-4 border border-border rounded-lg bg-background text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" 
-                />
-              </div>
-
-              {/* Address */}
-              <div>
-                <label className="text-sm font-medium text-foreground mb-1.5 block">{t('address')}</label>
-                <input 
-                  type="text" 
-                  placeholder={t('address_example')} 
-                  className="w-full h-11 px-4 border border-border rounded-lg bg-background text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" 
-                />
-              </div>
-            </div>
-
-            {/* Label Selection */}
-            <div className="mt-6">
-              <p className="text-sm font-medium text-foreground mb-3">{t('select_label')}</p>
-              <div className="flex gap-3">
-                <button 
-                  onClick={() => setLabel('office')} 
-                  className={`px-8 py-2.5 rounded-full text-sm font-medium transition-colors ${
-                    label === 'office' 
-                      ? 'bg-primary text-primary-foreground' 
-                      : 'border border-border text-foreground hover:bg-secondary'
-                  }`}
-                >
-                  {t('office').toUpperCase()}
-                </button>
-                <button 
-                  onClick={() => setLabel('home')} 
-                  className={`px-8 py-2.5 rounded-full text-sm font-medium transition-colors ${
-                    label === 'home' 
-                      ? 'bg-primary text-primary-foreground' 
-                      : 'border border-border text-foreground hover:bg-secondary'
-                  }`}
-                >
-                  {t('home').toUpperCase()}
-                </button>
-              </div>
-            </div>
-
-            <button className="mt-6 bg-primary text-primary-foreground px-8 py-3 rounded-lg font-medium hover:bg-primary/90 transition-colors">
-              {t('save')}
-            </button>
-          </div>
-
-          {/* Order Summary */}
-          <div className="lg:col-span-1 space-y-6">
-            {/* Promotion */}
-            <div className="bg-card border border-border rounded-xl p-6">
-              <h3 className="font-semibold text-foreground mb-4">{t('promotion')}</h3>
-              <div className="flex gap-2 mb-6">
-                <input 
-                  type="text" 
-                  placeholder={t('coupon_code')} 
-                  className="flex-1 h-11 px-4 border border-border rounded-lg bg-background text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" 
-                />
-                <button className="bg-primary text-primary-foreground px-6 py-2 rounded-lg text-sm font-medium hover:bg-primary/90 transition-colors">
-                  {t('apply')}
-                </button>
-              </div>
-
-              <p className="text-sm text-muted-foreground mb-4">{t('invoice_contact')}</p>
+      <div className="bg-[#FBFAFF] min-h-screen">
+        <div className="container mx-auto px-4 py-8">
+          <div className="flex flex-col lg:flex-row gap-8 items-start">
+            {/* Delivery Form */}
+            <div className="flex-1 bg-white rounded-3xl p-6 md:p-10 shadow-sm border border-gray-100">
+              <h2 className="text-2xl font-bold text-gray-900 mb-8">Delivery Information</h2>
               
-              <div className="space-y-3">
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-foreground">{t('order_detail')}</span>
-                  <span className="text-sm text-primary cursor-pointer hover:underline">{t('edit')}</span>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6 mb-8">
+                {/* Full Name */}
+                <div>
+                  <label className="text-sm font-bold text-gray-900 mb-2 block">Full name</label>
+                  <input 
+                    type="text" 
+                    placeholder="Enter your first and last name" 
+                    className="w-full bg-[#F9F5FF] border border-[#E9D7FE] rounded-xl px-4 py-3 text-sm text-gray-500 font-medium focus:outline-none focus:ring-2 focus:ring-[#7F56D9]/20" 
+                  />
                 </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-muted-foreground">{t('items_total')} (1 {t('items')})</span>
-                  <span className="text-foreground font-medium">{currencySymbol}148.00</span>
+
+                {/* Region */}
+                <div>
+                  <label className="text-sm font-bold text-gray-900 mb-2 block">Region</label>
+                  <div className="relative">
+                    <select className="w-full bg-[#F9F5FF] border border-[#E9D7FE] rounded-xl px-4 py-3 text-sm text-gray-400 font-medium appearance-none focus:outline-none focus:ring-2 focus:ring-[#7F56D9]/20">
+                      <option>Please choose your region</option>
+                    </select>
+                    <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+                  </div>
                 </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-muted-foreground">{t('delivery_fee')}</span>
-                  <span className="text-foreground font-medium">{currencySymbol} 20</span>
+
+                {/* Phone Number */}
+                <div>
+                  <label className="text-sm font-bold text-gray-900 mb-2 block">Phone Number</label>
+                  <input 
+                    type="tel" 
+                    placeholder="Please enter your phone number" 
+                    className="w-full bg-[#F9F5FF] border border-[#E9D7FE] rounded-xl px-4 py-3 text-sm text-gray-500 font-medium focus:outline-none focus:ring-2 focus:ring-[#7F56D9]/20" 
+                  />
                 </div>
-                <div className="border-t border-border pt-3 flex justify-between">
-                  <span className="font-semibold text-foreground">{t('total')}:</span>
-                  <span className="font-bold text-lg text-foreground">{currencySymbol}148.20</span>
+
+                {/* City */}
+                <div>
+                  <label className="text-sm font-bold text-gray-900 mb-2 block">City</label>
+                  <div className="relative">
+                    <select className="w-full bg-[#F9F5FF] border border-[#E9D7FE] rounded-xl px-4 py-3 text-sm text-gray-400 font-medium appearance-none focus:outline-none focus:ring-2 focus:ring-[#7F56D9]/20">
+                      <option>Please choose your city</option>
+                    </select>
+                    <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+                  </div>
+                </div>
+
+                {/* Building/Street */}
+                <div>
+                  <label className="text-sm font-bold text-gray-900 mb-2 block">Building / House No / Floor / Street</label>
+                  <input 
+                    type="text" 
+                    placeholder="Please enter" 
+                    className="w-full bg-[#F9F5FF] border border-[#E9D7FE] rounded-xl px-4 py-3 text-sm text-gray-500 font-medium focus:outline-none focus:ring-2 focus:ring-[#7F56D9]/20" 
+                  />
+                </div>
+
+                {/* Area */}
+                <div>
+                  <label className="text-sm font-bold text-gray-900 mb-2 block">Area</label>
+                  <div className="relative">
+                    <select className="w-full bg-[#F9F5FF] border border-[#E9D7FE] rounded-xl px-4 py-3 text-sm text-gray-400 font-medium appearance-none focus:outline-none focus:ring-2 focus:ring-[#7F56D9]/20">
+                      <option>Please choose your area</option>
+                    </select>
+                    <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+                  </div>
+                </div>
+
+                {/* Colony/Landmark */}
+                <div>
+                  <label className="text-sm font-bold text-gray-900 mb-2 block">Colony / Suburb / Locality / Landmark</label>
+                  <input 
+                    type="text" 
+                    placeholder="Please enter" 
+                    className="w-full bg-[#F9F5FF] border border-[#E9D7FE] rounded-xl px-4 py-3 text-sm text-gray-500 font-medium focus:outline-none focus:ring-2 focus:ring-[#7F56D9]/20" 
+                  />
+                </div>
+
+                {/* Address */}
+                <div>
+                  <label className="text-sm font-bold text-gray-900 mb-2 block">Address</label>
+                  <input 
+                    type="text" 
+                    placeholder="example House# 123, Street# 123, ABC Road" 
+                    className="w-full bg-[#F9F5FF] border border-[#E9D7FE] rounded-xl px-4 py-3 text-sm text-gray-500 font-medium focus:outline-none focus:ring-2 focus:ring-[#7F56D9]/20" 
+                  />
                 </div>
               </div>
 
-              <button className="w-full mt-4 bg-primary text-primary-foreground py-3 rounded-lg font-medium hover:bg-primary/90 transition-colors">
-                {t('apply')}
+              {/* Label Selector */}
+              <div className="mb-10">
+                <label className="text-sm font-bold text-gray-900 mb-4 block">Select a label for effective delivery:</label>
+                <div className="flex gap-4">
+                  <button 
+                    onClick={() => setLabel('OFFICE')}
+                    className={`px-10 py-3 rounded-xl font-bold text-sm transition-all ${label === 'OFFICE' ? 'bg-[#A684D4] text-white shadow-md' : 'bg-[#E9D7FE] text-[#7F56D9]'}`}
+                  >
+                    OFFICE
+                  </button>
+                  <button 
+                    onClick={() => setLabel('HOME')}
+                    className={`px-10 py-3 rounded-xl font-bold text-sm transition-all ${label === 'HOME' ? 'bg-[#A684D4] text-white shadow-md' : 'bg-[#E9D7FE] text-[#7F56D9]'}`}
+                  >
+                    HOME
+                  </button>
+                </div>
+              </div>
+
+              <button className="bg-[#530084] text-white font-bold px-12 py-3 rounded-xl hover:bg-[#400066] transition-colors shadow-lg uppercase tracking-wider">
+                SAVE
               </button>
             </div>
 
-            {/* Cart Item Preview */}
-            <div className="bg-card border border-border rounded-xl p-4">
-              <div className="flex gap-4">
-                <div className="flex-shrink-0">
-                  <div className="text-sm font-medium mb-1">{t('delivery_or_pickup')}</div>
-                  <div className="text-lg font-bold text-foreground">{currencySymbol} 20</div>
-                  <div className="text-xs text-muted-foreground">Standard delivery</div>
-                  <div className="text-xs text-green font-medium">Get by 12-13 jan</div>
-                </div>
-                <div className="w-16 h-16 bg-muted rounded-lg overflow-hidden flex-shrink-0">
-                  <img 
-                    src="https://images.unsplash.com/photo-1594035910387-fea47794261f?w=100&h=100&fit=crop" 
-                    alt="Product" 
-                    className="w-full h-full object-contain" 
+            {/* Sidebar / Promotion */}
+            <div className="w-full lg:w-96 space-y-6">
+              <div className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100">
+                <h3 className="text-2xl font-bold text-gray-900 mb-6">Promotion</h3>
+                <div className="flex gap-2 mb-8">
+                  <input 
+                    type="text" 
+                    placeholder="Coupon code" 
+                    className="flex-1 bg-[#F9F5FF] border border-[#E9D7FE] rounded-xl px-4 py-3 text-sm focus:outline-none" 
                   />
+                  <button className="bg-[#530084] text-white font-bold px-6 py-3 rounded-xl hover:bg-[#400066] transition-colors shadow-md">
+                    APPLY
+                  </button>
                 </div>
-                <div className="flex-1 min-w-0">
-                  <h4 className="text-sm font-medium text-foreground line-clamp-2">Cool Water Intense Eau De Parfum 125ml</h4>
-                  <div className="flex items-baseline gap-2 mt-1">
-                    <span className="font-bold text-foreground">{currencySymbol}148.00</span>
-                    <span className="text-xs text-muted-foreground line-through">188.00</span>
+
+                <div className="space-y-4 pt-6 border-t border-gray-100">
+                  <div className="flex items-center justify-between">
+                    <h4 className="font-bold text-gray-900">Invoice and Contact Info</h4>
                   </div>
-                  <p className="text-xs text-muted-foreground mt-1">Qty: 1</p>
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="font-bold text-gray-900">Order Detail</span>
+                    <button className="text-[#7F56D9] font-bold">Edit</button>
+                  </div>
+                  <div className="flex items-center justify-between text-sm font-bold text-gray-900">
+                    <span>Items Total (1 Items)</span>
+                    <span>฿148.00</span>
+                  </div>
+                  <div className="flex items-center justify-between text-sm font-bold text-gray-900">
+                    <span>Delivery Fee</span>
+                    <span>฿ 20</span>
+                  </div>
+                  <div className="flex items-center justify-between text-xl font-black text-gray-900 pt-4">
+                    <span>Total:</span>
+                    <span>฿148.20</span>
+                  </div>
+                </div>
+
+                <button className="w-full mt-8 bg-[#D1C4E9] text-white font-bold py-4 rounded-xl cursor-not-allowed uppercase tracking-wider">
+                  APPLY
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom Delivery Info */}
+          <div className="mt-12 flex flex-col md:flex-row gap-8 items-stretch">
+            <div className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100 flex-1 flex flex-col justify-center">
+              <h4 className="text-lg font-bold text-gray-900 mb-2">Delivery or Pickup</h4>
+              <p className="text-xl font-black text-gray-900 mb-1">฿ 20</p>
+              <p className="text-sm font-bold text-gray-900">Standard delivery</p>
+              <p className="text-sm text-gray-400 font-medium">Get by 12-13 jan</p>
+            </div>
+
+            <div className="bg-white rounded-3xl p-6 shadow-sm border border-gray-100 flex-[2] flex items-center gap-8">
+              <div className="w-24 h-24 bg-[#F9F5FF] rounded-2xl overflow-hidden border border-[#E9D7FE] p-2 flex-shrink-0">
+                <img 
+                  src="https://images.unsplash.com/photo-1594035910387-fea47794261f?w=200&h=200&fit=crop" 
+                  alt="Cool Water" 
+                  className="w-full h-full object-contain" 
+                />
+              </div>
+              <div className="flex-1">
+                <h4 className="text-sm font-bold text-gray-900 mb-4 max-w-xs">Cool Water Intense Eau De Parfum 125ml</h4>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-xl font-black text-gray-900">฿148.00</p>
+                    <p className="text-xs text-gray-400 font-bold line-through">฿ 188.00</p>
+                  </div>
+                  <div className="text-sm text-gray-400 font-bold">Qty: 1</div>
                 </div>
               </div>
             </div>

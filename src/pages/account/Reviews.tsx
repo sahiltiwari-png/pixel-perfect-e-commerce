@@ -15,47 +15,53 @@ const ReviewsPage: React.FC = () => {
   const { t } = useLanguage();
   return (
     <Layout>
-      <div className="container mx-auto px-4 py-6">
-        <h1 className="text-2xl font-bold text-primary mb-6">{t('account')}</h1>
-        <div className="flex flex-col md:flex-row gap-6">
-          <AccountSidebar />
-          <div className="flex-1">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-semibold">{t('my_reviews')}</h2>
-              <button className="flex items-center gap-2 text-sm border border-border px-4 py-2 rounded-lg hover:bg-secondary transition-colors">
-                <Filter className="w-4 h-4" />
-                {t('recent')}
-              </button>
-            </div>
-            <div className="space-y-4">
-              {reviews.map((review) => (
-                <div key={review.id} className="bg-card border border-border rounded-xl p-5 hover:shadow-md transition-shadow">
-                  <div className="flex gap-4">
-                    <div className="w-20 h-20 bg-muted rounded-lg overflow-hidden flex-shrink-0">
-                      <img src={review.image} alt={review.product} className="w-full h-full object-contain" />
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="font-medium text-foreground mb-2">{review.product}</h3>
-                      <div className="flex items-center gap-3 mb-2">
-                        <RatingStars rating={review.rating} size="sm" />
-                        <span className="font-semibold text-lg">{review.rating}.0</span>
+      <div className="bg-[#FBFAFF] min-h-screen">
+        <div className="container mx-auto px-4 py-8">
+          <h1 className="text-3xl font-bold text-gray-900 mb-8 ml-4 md:ml-0">Account</h1>
+          
+          <div className="flex flex-col lg:flex-row gap-8">
+            <AccountSidebar />
+            
+            <div className="flex-1 bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-gray-100">
+              <div className="flex items-center justify-between mb-8">
+                <h2 className="text-2xl font-bold text-gray-900">My Reviews</h2>
+                <button className="flex items-center gap-2 bg-white border border-gray-200 px-4 py-2 rounded-xl text-sm font-semibold text-gray-600 hover:bg-gray-50 transition-colors shadow-sm">
+                  <Filter className="w-4 h-4" />
+                  Recent
+                </button>
+              </div>
+
+              <div className="space-y-6">
+                {reviews.map((review) => (
+                  <div key={review.id} className="bg-white border border-[#E9D7FE] rounded-2xl p-6 hover:shadow-md transition-all duration-200">
+                    <div className="flex flex-col md:flex-row gap-6">
+                      <div className="w-full md:w-32 h-32 bg-[#F9F5FF] rounded-xl overflow-hidden flex-shrink-0 border border-[#E9D7FE]">
+                        <img src={review.image} alt={review.product} className="w-full h-full object-contain p-2" />
                       </div>
-                      <p className="text-xs text-muted-foreground mb-3">{t('reviewed_on')} {review.date}</p>
-                      <p className="text-sm text-muted-foreground">{review.text}</p>
-                      <div className="flex gap-3 mt-4 pt-4 border-t border-border">
-                        <button className="flex items-center gap-1 text-xs border border-border px-3 py-1.5 rounded-lg hover:bg-secondary transition-colors">
-                          <Pencil className="w-3 h-3" />
-                          {t('edit_review')}
-                        </button>
-                        <button className="flex items-center gap-1 text-xs text-red hover:underline">
-                          <Trash2 className="w-3 h-3" />
-                          {t('delete')}
-                        </button>
+                      <div className="flex-1">
+                        <h3 className="text-lg font-bold text-gray-900 mb-3 line-clamp-2">{review.product}</h3>
+                        <div className="flex items-center gap-4 mb-3">
+                          <RatingStars rating={review.rating} size="sm" />
+                          <span className="text-2xl font-bold text-gray-900">{review.rating}.0</span>
+                        </div>
+                        <p className="text-sm text-gray-400 font-medium mb-4">Reviewed on {review.date}</p>
+                        <p className="text-sm text-gray-600 leading-relaxed font-medium mb-6">{review.text}</p>
+                        
+                        <div className="flex gap-4 pt-6 border-t border-gray-100">
+                          <button className="flex items-center gap-2 text-xs font-bold text-[#7F56D9] bg-[#F9F5FF] border border-[#E9D7FE] px-4 py-2 rounded-lg hover:bg-[#F4EBFF] transition-colors">
+                            <Pencil className="w-3.5 h-3.5" />
+                            Edit Review
+                          </button>
+                          <button className="flex items-center gap-2 text-xs font-bold text-red-500 bg-white border border-red-100 px-4 py-2 rounded-lg hover:bg-red-50 transition-colors">
+                            <Trash2 className="w-3.5 h-3.5" />
+                            Delete
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         </div>

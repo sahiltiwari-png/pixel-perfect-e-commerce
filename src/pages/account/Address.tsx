@@ -1,5 +1,5 @@
 import React from 'react';
-import { Plus, MapPin, Phone, Pencil, Trash2 } from 'lucide-react';
+import { Plus, MapPin, Phone, Pencil, Trash2, User } from 'lucide-react';
 import Layout from '@/components/layout/Layout';
 import AccountSidebar from '@/components/AccountSidebar';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -13,55 +13,69 @@ const AddressPage: React.FC = () => {
   const { t } = useLanguage();
   return (
     <Layout>
-      <div className="container mx-auto px-4 py-6">
-        <h1 className="text-2xl font-bold text-primary mb-6">{t('account')}</h1>
-        <div className="flex flex-col md:flex-row gap-6">
-          <AccountSidebar />
-          <div className="flex-1">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-semibold">{t('my_addresses')}</h2>
-              <button className="flex items-center gap-2 text-sm font-medium hover:text-primary transition-colors">
-                <Plus className="w-4 h-4" />
-                {t('add_new_address')}
-              </button>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {addresses.map((addr) => (
-                <div key={addr.id} className="bg-card border border-border rounded-xl p-5 hover:shadow-md transition-shadow">
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="font-semibold text-foreground">{addr.label}</span>
-                    {addr.isDefault && (
-                      <span className="text-xs bg-secondary text-primary px-3 py-1 rounded-full font-medium">{t('default')}</span>
-                    )}
-                  </div>
-                  <p className="text-sm text-muted-foreground whitespace-pre-line mb-4">{addr.address}</p>
-                  <div className="space-y-1.5 mb-4">
-                    <p className="text-sm flex items-center gap-2">
-                      <MapPin className="w-4 h-4 text-muted-foreground" />
-                      <span>{addr.name}</span>
-                    </p>
-                    <p className="text-sm flex items-center gap-2 text-muted-foreground">
-                      <Phone className="w-4 h-4" />
-                      <span>{addr.phone}</span>
-                    </p>
-                  </div>
-                  <div className="flex gap-3 pt-4 border-t border-border">
-                    <button className="flex items-center gap-1 text-xs border border-border px-3 py-1.5 rounded-lg hover:bg-secondary transition-colors">
-                      <Pencil className="w-3 h-3" />
-                      {t('edit')}
-                    </button>
-                    <button className="flex items-center gap-1 text-xs text-red hover:underline">
-                      <Trash2 className="w-3 h-3" />
-                      {t('remove')}
-                    </button>
-                    {!addr.isDefault && (
-                      <button className="text-xs border border-border px-3 py-1.5 rounded-lg hover:bg-secondary transition-colors ml-auto">
-                        {t('make_default')}
+      <div className="bg-[#FBFAFF] min-h-screen">
+        <div className="container mx-auto px-4 py-8">
+          <h1 className="text-3xl font-bold text-gray-900 mb-8 ml-4 md:ml-0">Account</h1>
+          
+          <div className="flex flex-col lg:flex-row gap-8">
+            <AccountSidebar />
+            
+            <div className="flex-1 bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-gray-100">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-4">
+                <h2 className="text-2xl font-bold text-gray-900">Address</h2>
+                <button className="flex items-center gap-2 bg-white border border-gray-200 px-4 py-2 rounded-xl text-sm font-semibold text-[#7F56D9] hover:bg-[#F9F5FF] transition-colors shadow-sm">
+                  <Plus className="w-4 h-4" />
+                  Add New Address
+                </button>
+              </div>
+
+              <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+                {addresses.map((addr) => (
+                  <div key={addr.id} className="bg-[#F9F5FF] border border-[#E9D7FE] rounded-2xl p-6 relative">
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="px-4 py-1.5 bg-white border border-[#E9D7FE] rounded-lg text-sm font-bold text-gray-900">
+                        {addr.label}
+                      </div>
+                      {addr.isDefault && (
+                        <span className="text-xs bg-[#E9D7FE] text-[#7F56D9] px-3 py-1 rounded-full font-bold uppercase tracking-wider">Default</span>
+                      )}
+                    </div>
+
+                    <div className="space-y-4 mb-6">
+                      <p className="text-sm text-gray-600 leading-relaxed font-medium">
+                        {addr.address}
+                      </p>
+                      
+                      <div className="space-y-2">
+                        <div className="flex items-center gap-3 text-sm text-gray-700 font-medium">
+                          <User className="w-4 h-4 text-gray-400" />
+                          {addr.name}
+                        </div>
+                        <div className="flex items-center gap-3 text-sm text-gray-700 font-medium">
+                          <Phone className="w-4 h-4 text-gray-400" />
+                          {addr.phone}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-wrap items-center gap-3 pt-6 border-t border-[#E9D7FE]">
+                      <button className="flex items-center gap-2 text-xs font-bold text-gray-500 bg-white border border-gray-200 px-4 py-2 rounded-lg hover:bg-gray-50 transition-colors">
+                        <Pencil className="w-3.5 h-3.5" />
+                        Edit
                       </button>
-                    )}
+                      <button className="flex items-center gap-2 text-xs font-bold text-red-500 bg-white border border-red-100 px-4 py-2 rounded-lg hover:bg-red-50 transition-colors">
+                        <Trash2 className="w-3.5 h-3.5" />
+                        Remove
+                      </button>
+                      {!addr.isDefault && (
+                        <button className="text-xs font-bold text-[#7F56D9] bg-[#E9D7FE] px-4 py-2 rounded-lg hover:bg-[#D6BBFB] transition-colors ml-auto">
+                          Make Default
+                        </button>
+                      )}
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         </div>

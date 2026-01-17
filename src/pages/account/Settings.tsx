@@ -8,91 +8,130 @@ const AccountSettingsPage: React.FC = () => {
   const { t } = useLanguage();
   return (
     <Layout>
-      <div className="container mx-auto px-4 py-6">
-        <h1 className="text-2xl font-bold text-primary mb-6">{t('account')}</h1>
-        <div className="flex flex-col md:flex-row gap-6">
-          <AccountSidebar />
-          <div className="flex-1 space-y-6">
-            <h2 className="text-xl font-semibold">{t('account_settings')}</h2>
+      <div className="bg-[#FBFAFF] min-h-screen">
+        <div className="container mx-auto px-4 py-8">
+          <h1 className="text-3xl font-bold text-gray-900 mb-8 ml-4 md:ml-0">Account</h1>
+          
+          <div className="flex flex-col lg:flex-row gap-8">
+            <AccountSidebar />
             
-            {/* Personal Information */}
-            <div className="bg-card border border-border rounded-lg p-6">
-              <h3 className="font-semibold mb-4">{t('personal_information')}</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="text-sm text-muted-foreground">{t('first_name')}</label>
-                  <input type="text" defaultValue="Alex" className="input-field mt-1" />
+            <div className="flex-1 space-y-8">
+              <h2 className="text-2xl font-bold text-gray-900">Account Settings</h2>
+              
+              {/* Personal Information */}
+              <div className="bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-gray-100">
+                <h3 className="text-xl font-bold text-[#530084] mb-6">Personal Information</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label className="text-sm font-bold text-gray-900 mb-2 block">First Name</label>
+                    <input 
+                      type="text" 
+                      defaultValue="Alex" 
+                      className="w-full bg-[#F9F5FF] border border-[#E9D7FE] rounded-xl px-4 py-3 text-sm text-gray-500 font-medium focus:outline-none focus:ring-2 focus:ring-[#7F56D9]/20" 
+                    />
+                  </div>
+                  <div>
+                    <label className="text-sm font-bold text-gray-900 mb-2 block">Last Name</label>
+                    <input 
+                      type="text" 
+                      defaultValue="Suprun" 
+                      className="w-full bg-[#F9F5FF] border border-[#E9D7FE] rounded-xl px-4 py-3 text-sm text-gray-500 font-medium focus:outline-none focus:ring-2 focus:ring-[#7F56D9]/20" 
+                    />
+                  </div>
+                  <div>
+                    <label className="text-sm font-bold text-gray-900 mb-2 block">Email</label>
+                    <input 
+                      type="email" 
+                      defaultValue="Alex Suprun@2415.gmail.com" 
+                      className="w-full bg-[#F9F5FF] border border-[#E9D7FE] rounded-xl px-4 py-3 text-sm text-gray-500 font-medium focus:outline-none focus:ring-2 focus:ring-[#7F56D9]/20" 
+                    />
+                  </div>
+                  <div>
+                    <label className="text-sm font-bold text-gray-900 mb-2 block">Phone</label>
+                    <input 
+                      type="text" 
+                      defaultValue="+971 50 XXX 4567" 
+                      className="w-full bg-[#F9F5FF] border border-[#E9D7FE] rounded-xl px-4 py-3 text-sm text-gray-500 font-medium focus:outline-none focus:ring-2 focus:ring-[#7F56D9]/20" 
+                    />
+                  </div>
                 </div>
-                <div>
-                  <label className="text-sm text-muted-foreground">{t('last_name')}</label>
-                  <input type="text" defaultValue="Suprun" className="input-field mt-1" />
-                </div>
-                <div>
-                  <label className="text-sm text-muted-foreground">{t('email')}</label>
-                  <input type="email" defaultValue="Alex.Suprun@2415.gmail.com" className="input-field mt-1" />
-                </div>
-                <div>
-                  <label className="text-sm text-muted-foreground">{t('phone')}</label>
-                  <input type="tel" defaultValue="+971 50 XXX 4567" className="input-field mt-1" />
+                <button className="mt-8 bg-[#530084] text-white font-bold px-10 py-3 rounded-xl hover:bg-[#400066] transition-colors shadow-lg">
+                  Save Changes
+                </button>
+              </div>
+
+              {/* Email Preferences */}
+              <div className="bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-gray-100">
+                <h3 className="text-xl font-bold text-[#530084] mb-6">Email Preferences</h3>
+                <div className="space-y-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-bold text-gray-900">Order Updates</p>
+                      <p className="text-xs text-gray-400 font-medium">Receive notifications about your order status</p>
+                    </div>
+                    <div className="relative inline-flex h-6 w-11 items-center rounded-full bg-[#530084]">
+                      <span className="translate-x-6 inline-block h-4 w-4 transform rounded-full bg-white transition" />
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-bold text-gray-900">Promotions</p>
+                      <p className="text-xs text-gray-400 font-medium">Receive emails about new promotions and deals</p>
+                    </div>
+                    <div className="relative inline-flex h-6 w-11 items-center rounded-full bg-[#E9D7FE]">
+                      <span className="translate-x-1 inline-block h-4 w-4 transform rounded-full bg-white transition" />
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-bold text-gray-900">Newsletter</p>
+                      <p className="text-xs text-gray-400 font-medium">Subscribe to our weekly newsletter</p>
+                    </div>
+                    <div className="relative inline-flex h-6 w-11 items-center rounded-full bg-[#530084]">
+                      <span className="translate-x-6 inline-block h-4 w-4 transform rounded-full bg-white transition" />
+                    </div>
+                  </div>
                 </div>
               </div>
-              <button className="btn-primary mt-4">{t('save_changes')}</button>
-            </div>
 
-            {/* Email Preferences */}
-            <div className="bg-card border border-border rounded-lg p-6">
-              <h3 className="font-semibold mb-4">{t('email_preferences')}</h3>
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
+              {/* Security */}
+              <div className="bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-gray-100">
+                <h3 className="text-xl font-bold text-[#530084] mb-6">Security</h3>
+                <div className="space-y-6">
                   <div>
-                    <p className="font-medium text-sm">{t('order_updates')}</p>
-                    <p className="text-xs text-muted-foreground">{t('order_updates_desc')}</p>
+                    <label className="text-sm font-bold text-gray-900 mb-2 block">Current Password</label>
+                    <input 
+                      type="password" 
+                      className="w-full bg-[#F9F5FF] border border-[#E9D7FE] rounded-xl px-4 py-3 text-sm text-gray-500 font-medium focus:outline-none focus:ring-2 focus:ring-[#7F56D9]/20" 
+                    />
                   </div>
-                  <Switch defaultChecked />
-                </div>
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="font-medium text-sm">{t('promotions')}</p>
-                    <p className="text-xs text-muted-foreground">{t('promotions_desc')}</p>
-                  </div>
-                  <Switch />
-                </div>
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="font-medium text-sm">{t('newsletter')}</p>
-                    <p className="text-xs text-muted-foreground">{t('newsletter_desc')}</p>
-                  </div>
-                  <Switch defaultChecked />
-                </div>
-              </div>
-            </div>
-
-            {/* Security */}
-            <div className="bg-card border border-border rounded-lg p-6">
-              <h3 className="font-semibold mb-4">{t('security')}</h3>
-              <div className="space-y-4">
-                <div>
-                  <label className="text-sm text-muted-foreground">{t('current_password')}</label>
-                  <input type="password" className="input-field mt-1" />
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="text-sm text-muted-foreground">{t('new_password')}</label>
-                    <input type="password" className="input-field mt-1" />
-                  </div>
-                  <div>
-                    <label className="text-sm text-muted-foreground">{t('confirm_password')}</label>
-                    <input type="password" className="input-field mt-1" />
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <label className="text-sm font-bold text-gray-900 mb-2 block">New Password</label>
+                      <input 
+                        type="password" 
+                        className="w-full bg-[#F9F5FF] border border-[#E9D7FE] rounded-xl px-4 py-3 text-sm text-gray-500 font-medium focus:outline-none focus:ring-2 focus:ring-[#7F56D9]/20" 
+                      />
+                    </div>
+                    <div>
+                      <label className="text-sm font-bold text-gray-900 mb-2 block">Confirm Password</label>
+                      <input 
+                        type="password" 
+                        className="w-full bg-[#F9F5FF] border border-[#E9D7FE] rounded-xl px-4 py-3 text-sm text-gray-500 font-medium focus:outline-none focus:ring-2 focus:ring-[#7F56D9]/20" 
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            {/* Delete Account */}
-            <div className="bg-card border border-red/30 rounded-lg p-6">
-              <h3 className="font-semibold text-red mb-2">{t('delete_account')}</h3>
-              <p className="text-sm text-muted-foreground mb-4">{t('delete_account_warning')}</p>
-              <button className="bg-red text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-red/90">{t('delete_account')}</button>
+              {/* Delete Account */}
+              <div className="bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-gray-100">
+                <h3 className="text-xl font-bold text-red-500 mb-2 uppercase tracking-wider">Delete Account</h3>
+                <p className="text-sm text-gray-400 font-medium mb-8">Once you delete your account, there is no going back. Please be certain</p>
+                <button className="bg-[#530084] text-white font-bold px-10 py-3 rounded-xl hover:bg-red-700 transition-colors shadow-lg uppercase tracking-wider">
+                  Delete Account
+                </button>
+              </div>
             </div>
           </div>
         </div>

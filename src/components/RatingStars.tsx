@@ -3,7 +3,7 @@ import { Star } from 'lucide-react';
 
 interface RatingStarsProps {
   rating: number;
-  size?: 'sm' | 'md' | 'lg';
+  size?: 'xs' | 'sm' | 'md' | 'lg';
   showEmpty?: boolean;
 }
 
@@ -13,7 +13,8 @@ const RatingStars: React.FC<RatingStarsProps> = ({
   showEmpty = true,
 }) => {
   const sizeClass = {
-    sm: 'w-3 h-3',
+    xs: 'w-2.5 h-2.5',
+    sm: 'w-3.5 h-3.5',
     md: 'w-4 h-4',
     lg: 'w-5 h-5',
   }[size];

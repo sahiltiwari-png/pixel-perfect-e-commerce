@@ -99,148 +99,131 @@ const recommendedProducts = [
 const CartPage: React.FC = () => {
   const { t, currencySymbol } = useLanguage();
   const [items, setItems] = useState(cartItems);
-  const [couponCode, setCouponCode] = useState('');
-
-  const updateQuantity = (id: string, newQuantity: number) => {
-    setItems((prev) =>
-      prev.map((item) => (item.id === id ? { ...item, quantity: newQuantity } : item))
-    );
-  };
 
   const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  const itemCount = items.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
     <Layout>
-      {/* Banner */}
-      <div className="w-full h-24 md:h-32 overflow-hidden relative">
-        <img
-          src={sportsBanner}
-          alt="50% OFF Sports Shoes"
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 flex items-center">
-          <div className="container mx-auto px-4">
-            <div className="flex items-center gap-4">
-              <span className="text-3xl md:text-5xl font-black text-primary-foreground">50%<span className="text-lg md:text-2xl">OFF</span></span>
-              <div>
-                <h2 className="text-xl md:text-3xl font-bold text-red italic">SPORTS SHOES</h2>
-                <p className="text-xs md:text-sm text-primary-foreground/80">Comfort That Moves With You</p>
-              </div>
-            </div>
+      <div className="bg-[#FBFAFF] min-h-screen">
+        <div className="container mx-auto px-4 py-8">
+          {/* Banner */}
+          <div className="w-full mb-8 rounded-3xl overflow-hidden shadow-lg border-4 border-white">
+            <img src={sportsBanner} alt="50% Off Sports Shoes" className="w-full h-auto object-cover" />
           </div>
-        </div>
-      </div>
 
-      <div className="container mx-auto px-4 py-6">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Cart Items */}
-          <div className="lg:col-span-2 space-y-4">
-            {items.map((item) => (
-              <div
-                key={item.id}
-                className="bg-card border border-border rounded-xl p-4 md:p-6 flex flex-col sm:flex-row gap-4"
-              >
-                {/* Product Image */}
-                <div className="w-full sm:w-36 h-36 flex-shrink-0 bg-muted rounded-lg overflow-hidden">
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    className="w-full h-full object-contain"
-                  />
-                </div>
-
-                {/* Product Details */}
-                <div className="flex-1">
-                  <h3 className="font-medium text-foreground mb-2 line-clamp-2">{item.name}</h3>
-
-                  {/* Rating */}
-                  <div className="flex items-center gap-2 mb-2">
-                    <RatingStars rating={item.rating} size="sm" />
-                    <span className="text-sm text-foreground">{item.rating}</span>
-                    <Link to="#" className="text-sm text-primary underline">
-                      {item.reviewCount} {t('review')}
-                    </Link>
+          <div className="flex flex-col lg:flex-row gap-8 items-start">
+            {/* Cart Items */}
+            <div className="flex-1 space-y-6 w-full">
+              {items.map((item) => (
+                <div key={item.id} className="bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-gray-100 flex flex-col md:flex-row gap-8 relative overflow-hidden">
+                  {/* Decorative element like the image */}
+                  <div className="absolute top-0 right-0 w-32 h-full bg-[#FBFAFF] -z-0 pointer-events-none md:block hidden" />
+                  
+                  <div className="w-full md:w-48 h-48 bg-[#F9F5FF] rounded-2xl overflow-hidden border border-[#E9D7FE] flex-shrink-0 flex items-center justify-center p-4 relative z-10">
+                    <img src={item.image} alt={item.name} className="w-full h-full object-contain" />
                   </div>
 
-                  {/* Free Shipping */}
-                  {item.freeShipping && (
-                    <p className="text-xs text-muted-foreground mb-3">{t('free_shipping')}</p>
-                  )}
+                  <div className="flex-1 flex flex-col justify-between relative z-10">
+                    <div>
+                      <h3 className="text-2xl font-bold text-gray-900 mb-4 leading-tight">
+                        {item.name}
+                      </h3>
+                      <div className="flex items-center gap-3 mb-4">
+                        <RatingStars rating={item.rating} size="sm" />
+                        <span className="text-lg font-bold text-gray-900">{item.rating}</span>
+                        <span className="text-gray-400 underline font-medium">{item.reviewCount} review</span>
+                      </div>
+                      <p className="text-sm text-gray-500 font-semibold mb-6">Eligible for free shipping</p>
+                    </div>
 
-                  {/* Quantity & Actions */}
-                  <div className="flex flex-wrap items-center gap-4">
-                    <QuantitySelector
-                      quantity={item.quantity}
-                      onIncrease={() => updateQuantity(item.id, item.quantity + 1)}
-                      onDecrease={() => updateQuantity(item.id, item.quantity - 1)}
+                    <div className="flex flex-wrap items-center gap-6">
+                      <QuantitySelector 
+                        quantity={item.quantity} 
+                        onIncrease={() => setItems(items.map(i => i.id === item.id ? {...i, quantity: i.quantity + 1} : i))}
+                        onDecrease={() => setItems(items.map(i => i.id === item.id ? {...i, quantity: Math.max(1, i.quantity - 1)} : i))}
+                      />
+                      <button className="flex items-center gap-2 text-gray-400 hover:text-red-500 transition-colors py-2 font-bold text-sm uppercase tracking-wider group">
+                        <div className="w-8 h-8 rounded-full border border-gray-100 flex items-center justify-center group-hover:bg-red-50 group-hover:border-red-100">
+                          <Trash2 className="w-4 h-4" />
+                        </div>
+                        Remove
+                      </button>
+                      <button className="flex items-center gap-2 text-[#7F56D9] hover:text-[#530084] transition-colors py-2 font-bold text-sm uppercase tracking-wider group">
+                        <div className="w-8 h-8 rounded-full border border-[#E9D7FE] flex items-center justify-center group-hover:bg-[#F4EBFF]">
+                          <Heart className="w-4 h-4" />
+                        </div>
+                        Add to wishlist
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Cart Summary */}
+            <div className="w-full lg:w-96 space-y-6">
+              <div className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100">
+                <div className="text-center mb-8">
+                  <h4 className="text-lg font-bold text-gray-700 mb-4">Got a coupon?</h4>
+                  <div className="flex gap-2">
+                    <input 
+                      type="text" 
+                      placeholder="Coupon code" 
+                      className="flex-1 bg-[#F9F5FF] border border-[#E9D7FE] rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#7F56D9]/20"
                     />
-
-                    <button className="flex items-center gap-1 text-sm text-red hover:underline">
-                      <Trash2 className="w-4 h-4" />
-                      {t('remove')}
-                    </button>
-
-                    <button className="flex items-center gap-1 text-sm text-muted-foreground hover:text-primary">
-                      <Heart className="w-4 h-4" />
-                      {t('add_to_wishlist')}
+                    <button className="bg-[#530084] text-white font-bold px-6 py-3 rounded-xl hover:bg-[#400066] transition-colors shadow-md text-sm">
+                      APPLY
                     </button>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
 
-          {/* Order Summary */}
-          <div className="lg:col-span-1">
-            <div className="bg-card border border-border rounded-xl p-6 sticky top-24">
-              {/* Coupon */}
-              <div className="mb-6">
-                <p className="text-sm font-medium text-foreground mb-2">{t('got_coupon')}</p>
-                <div className="flex gap-2">
-                  <input
-                    type="text"
-                    placeholder={t('coupon_code')}
-                    value={couponCode}
-                    onChange={(e) => setCouponCode(e.target.value)}
-                    className="flex-1 input-field py-2"
-                  />
-                  <button className="btn-primary px-4 py-2 text-sm">{t('apply')}</button>
+                <div className="space-y-4 pt-6 border-t border-gray-100">
+                  <div className="flex flex-col items-center justify-center text-center gap-2">
+                    <span className="text-2xl font-bold text-[#530084]">Subtotal ({items.length} item)</span>
+                    <span className="text-4xl font-black text-gray-900">{currencySymbol} {subtotal.toLocaleString()}</span>
+                  </div>
+                  <Link to="/checkout/delivery" className="w-full bg-[#530084] text-white font-bold py-4 rounded-2xl hover:bg-[#400066] transition-colors shadow-lg mt-4 uppercase tracking-widest text-lg block text-center">
+                    Proceed to checkout
+                  </Link>
                 </div>
               </div>
+            </div>
+          </div>
 
-              {/* Subtotal */}
-              <div className="text-center mb-4">
-                <p className="text-sm text-primary font-medium">
-                  {t('subtotal')} ({itemCount} {itemCount === 1 ? t('item') : t('items')})
-                </p>
-                <p className="text-3xl font-bold text-foreground">
-                  {currencySymbol} {subtotal.toLocaleString()}
-                </p>
-              </div>
-
-              {/* Checkout Button */}
-              <Link
-                to="/checkout/delivery"
-                className="w-full btn-primary text-center block"
-              >
-                {t('proceed_checkout')}
-              </Link>
+          {/* Recommended Section */}
+          <div className="mt-20">
+            <h2 className="text-3xl font-black text-[#530084] uppercase tracking-wider mb-10">YOU MAY ALSO LIKE</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+              {recommendedProducts.map((product) => (
+                <div key={product.id} className="bg-white rounded-3xl p-6 border border-gray-100 hover:shadow-xl transition-all duration-300 group">
+                  <div className="relative aspect-square mb-6 bg-[#F9F5FF] rounded-2xl overflow-hidden p-6 border border-[#E9D7FE]">
+                    <img src={product.image} alt={product.name} className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500" />
+                    <button className="absolute top-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md text-gray-300 hover:text-red-500 transition-colors">
+                      <Heart className="w-5 h-5" />
+                    </button>
+                  </div>
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs font-bold text-gray-900">{product.rating}</span>
+                      <RatingStars rating={product.rating} size="xs" />
+                      <span className="text-[10px] text-gray-400 font-bold">{product.reviewCount}</span>
+                      <div className="w-1.5 h-1.5 rounded-full bg-orange-400" />
+                    </div>
+                    <h3 className="text-sm font-bold text-gray-800 line-clamp-2 leading-snug min-h-[2.5rem]">
+                      {product.name}
+                    </h3>
+                    <div className="flex items-center gap-3">
+                      <span className="text-2xl font-black text-gray-900">{currencySymbol} {product.price.toLocaleString()}</span>
+                      {product.originalPrice && (
+                        <span className="text-sm text-gray-300 line-through font-bold">{currencySymbol} {product.originalPrice.toLocaleString()}</span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
-
-        {/* You May Also Like */}
-        <section className="mt-12">
-          <h2 className="text-lg md:text-xl font-bold text-foreground mb-4 uppercase">
-            {t('you_may_also_like')}
-          </h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-            {recommendedProducts.map((product) => (
-              <ProductCard key={product.id} {...product} />
-            ))}
-          </div>
-        </section>
       </div>
     </Layout>
   );
