@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Layout from '@/components/layout/Layout';
 import ProductCard from '@/components/ProductCard';
 import { useLanguage } from '@/contexts/LanguageContext';
-import heroBanner from '@/assets/hero-banner.jpg';
-import watchBanner from '@/assets/watch-banner.jpg';
+import heroBanner from '@/assets/hero-banner.jpg'; 
+import watchBanner from '@/assets/watch-banner.jpg'; 
 
 // Sample product data
 const sampleProducts = [
@@ -228,6 +228,18 @@ const Index: React.FC = () => {
   const [countdown, setCountdown] = useState({ hours: 18, minutes: 33, seconds: 24 });
   const [currentSlide, setCurrentSlide] = useState(0);
 
+  const categoryRef = useRef<HTMLDivElement>(null);
+
+  const scroll = (ref: React.RefObject<HTMLDivElement>, direction: 'left' | 'right') => {
+    if (ref.current) {
+      const scrollAmount = 400;
+      ref.current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth',
+      });
+    }
+  };
+
   useEffect(() => {
     const timer = setInterval(() => {
       setCountdown((prev) => {
@@ -305,14 +317,22 @@ const Index: React.FC = () => {
         </div>
       </section>
 
-      {/* Categories */}
-      <section className="container mx-auto px-4 py-6">
-        <div className="grid grid-cols-3 md:grid-cols-6 gap-3 md:gap-4">
+      <section className="container mx-auto px-4 py-6 relative group">
+        <button 
+          onClick={() => scroll(categoryRef, 'left')}
+          className="absolute left-2 top-1/2 -translate-y-1/2 z-10 p-2 bg-white shadow-lg rounded-full transition-opacity hover:bg-secondary border border-border"
+        >
+          <ChevronLeft className="w-5 h-5" />
+        </button>
+        <div 
+          ref={categoryRef}
+          className="flex overflow-x-auto scrollbar-hide gap-3 md:gap-4 pb-2"
+        >
           {categories.map((cat, idx) => (
             <Link
               key={idx}
               to={`/products?category=${cat.name.toLowerCase().replace(/ & /g, '-')}`}
-              className="text-center group"
+              className="text-center group flex-shrink-0 w-[calc(33.333%-12px)] sm:w-[calc(25%-12px)] md:w-[calc(16.666%-16px)]"
             >
               <div className="aspect-square rounded-lg overflow-hidden border border-border group-hover:border-primary transition-colors mb-2">
                 <img src={cat.image} alt={cat.name} className="w-full h-full object-cover" />
@@ -321,11 +341,17 @@ const Index: React.FC = () => {
             </Link>
           ))}
         </div>
+        <button 
+          onClick={() => scroll(categoryRef, 'right')}
+          className="absolute right-2 top-1/2 -translate-y-1/2 z-10 p-2 bg-white shadow-lg rounded-full transition-opacity hover:bg-secondary border border-border"
+        >
+          <ChevronRight className="w-5 h-5" />
+        </button>
       </section>
 
       {/* Mega Deals */}
       <section className="container mx-auto px-4 py-6">
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex flex-col md:flex-row md:items-center justify-between mb-4 gap-3">
           <h2 className="text-lg md:text-xl font-bold text-foreground">{t('mega_deals')}</h2>
           <div className="flex items-center gap-2 text-sm">
             <span className="text-muted-foreground">{t('hurry_up')}</span>
@@ -337,9 +363,9 @@ const Index: React.FC = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
           {/* Mega Deal Banners */}
-          <div className="col-span-1 space-y-4">
+          <div className="grid grid-cols-2 md:grid-cols-1 gap-4 md:col-span-1">
             {megaDeals.map((deal, idx) => (
               <div
                 key={idx}
@@ -360,7 +386,7 @@ const Index: React.FC = () => {
           </div>
 
           {/* Products */}
-          <div className="col-span-1 md:col-span-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="md:col-span-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
             {sampleProducts.slice(0, 4).map((product) => (
               <ProductCard key={product.id} {...product} />
             ))}
@@ -415,24 +441,24 @@ const Index: React.FC = () => {
 
       {/* Watch Banner */}
       <section className="container mx-auto px-4 py-6">
-        <div className="relative rounded-lg overflow-hidden h-48 md:h-64">
+        <div className="relative rounded-lg overflow-hidden h-48 md:h-64 lg:h-80">
           <img
             src={watchBanner}
             alt="Watch Timeless Elegance"
             className="w-full h-full object-cover"
           />
-          <div className="absolute right-8 top-1/2 -translate-y-1/2 text-right">
-            <div className="text-3xl md:text-5xl font-bold text-accent">
+          <div className="absolute right-4 md:right-8 lg:right-12 top-1/2 -translate-y-1/2 text-right max-w-[50%]">
+            <div className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-accent mb-1">
               {currencySymbol}2,699
             </div>
-            <div className="text-lg text-muted-foreground line-through">4,699</div>
+            <div className="text-sm sm:text-lg text-muted-foreground line-through">4,699</div>
           </div>
           {/* Dots indicator */}
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 md:gap-2">
             {[0, 1, 2, 3, 4, 5].map((i) => (
               <div
                 key={i}
-                className={`w-2 h-2 rounded-full ${i === 0 ? 'bg-primary' : 'bg-primary/30'}`}
+                className={`w-1.5 h-1.5 md:w-2 md:h-2 rounded-full ${i === 0 ? 'bg-primary' : 'bg-primary/30'}`}
               />
             ))}
           </div>
@@ -442,7 +468,7 @@ const Index: React.FC = () => {
       {/* Women's Fashion */}
       <section className="container mx-auto px-4 py-6">
         <h2 className="text-lg md:text-xl font-bold text-foreground mb-4">{t('womens_fashion')}</h2>
-        <div className="grid grid-cols-3 md:grid-cols-6 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
           {womensFashion.map((item, idx) => (
             <Link
               key={idx}
@@ -463,7 +489,7 @@ const Index: React.FC = () => {
       {/* Men's Fashion */}
       <section className="container mx-auto px-4 py-6">
         <h2 className="text-lg md:text-xl font-bold text-foreground mb-4">{t('mens_fashion')}</h2>
-        <div className="grid grid-cols-3 md:grid-cols-6 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
           {mensFashion.map((item, idx) => (
             <Link
               key={idx}
@@ -484,7 +510,7 @@ const Index: React.FC = () => {
       {/* Home & Kitchen */}
       <section className="container mx-auto px-4 py-6 mb-8">
         <h2 className="text-lg md:text-xl font-bold text-foreground mb-4">{t('home_kitchen')}</h2>
-        <div className="grid grid-cols-3 md:grid-cols-6 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
           {homeKitchen.map((item, idx) => (
             <Link
               key={idx}
